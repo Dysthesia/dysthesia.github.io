@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A modular personal portfolio for projects, notes, and an embedded knowledge graph."
+    />
+    <title>Elyjah Andres</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="data.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="#top" aria-label="Return to the top of the portfolio">
+          <span class="brand-mark" aria-hidden="true">/</span>
+          <span>portfolio.system</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#graph">Graph</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero section shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow" id="portfolio-label">Elyjah Andres</p>
+          <h1 id="hero-title">A home for the work I’m building.</h1>
+          <p class="hero-summary" id="hero-summary">
+           A portfolio made by and for an aspiring data scientist.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">Explore work</a>
+            <a class="button button-secondary" id="hero-graph-link" href="#graph">Open graph</a>
+          </div>
+
+          <div class="hero-note">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="portfolio-status">Currently building in public</span>
+          </div>
+        </div>
+
+        <aside class="portfolio-switcher panel" aria-labelledby="switcher-title">
+          <div class="panel-topline">
+            <span class="panel-kicker">Workspace</span>
+            <span class="panel-index" id="portfolio-index">01</span>
+          </div>
+          <h2 id="switcher-title">Choose a portfolio</h2>
+          <label class="select-label" for="portfolio-select">Active collection</label>
+          <select id="portfolio-select" aria-describedby="switcher-help"></select>
+          <p class="panel-help" id="switcher-help">
+            Each collection uses the same layout, so you can add new areas without rebuilding the page.
+          </p>
+          <div class="stat-grid" id="hero-stats" aria-label="Portfolio summary"></div>
+        </aside>
+      </section>
+
+      <section class="section shell" id="work" aria-labelledby="work-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected work</p>
+            <h2 id="work-title">Projects with a clear next step.</h2>
+          </div>
+          <p class="section-intro" id="work-intro">
+            A small set of projects is easier to maintain than a long list of unfinished links.
+          </p>
+        </div>
+        <div class="projects-grid" id="projects-grid"></div>
+      </section>
+
+      <section class="section shell about-layout" id="about" aria-labelledby="about-title">
+        <div class="about-copy">
+          <p class="eyebrow">About this collection</p>
+          <h2 id="about-title">Learn by making things visible.</h2>
+          <p id="about-text">
+            This section is intentionally short. Use it for your current direction, the questions you care about,
+            or the kind of work you want to do next.
+          </p>
+        </div>
+
+        <aside class="focus-card panel" aria-labelledby="focus-title">
+          <div class="panel-topline">
+            <span class="panel-kicker">Current focus</span>
+            <span class="accent-line" aria-hidden="true"></span>
+          </div>
+          <h2 id="focus-title">What I’m exploring</h2>
+          <ul class="focus-list" id="focus-list"></ul>
+        </aside>
+      </section>
+
+      <section class="section shell graph-section" id="graph" aria-labelledby="graph-title">
+        <div class="section-heading graph-heading">
+          <div>
+            <p class="eyebrow">Knowledge graph</p>
+            <h2 id="graph-title">A visual map of the ideas behind the work.</h2>
+          </div>
+          <div class="graph-copy">
+            <p id="graph-description">
+              Embed an Obsidian graph export here, or point this portfolio to an externally hosted HTML file.
+            </p>
+            <a class="text-link" id="graph-open-link" href="graph/index.html" target="_blank" rel="noopener">
+              Open graph separately
+            </a>
+          </div>
+        </div>
+
+        <div class="graph-meta">
+          <span class="graph-source" id="graph-source">Source: graph/index.html</span>
+          <span class="graph-status" id="graph-status" aria-live="polite">Loading graph panel…</span>
+        </div>
+
+        <div class="graph-frame-wrap" id="graph-frame-wrap">
+          <iframe
+            id="graph-frame"
+            title="Embedded Obsidian knowledge graph"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          ></iframe>
+        </div>
+
+        <div class="graph-empty panel" id="graph-empty" hidden>
+          <p class="eyebrow">Graph not configured</p>
+          <h3>Add an HTML graph to this portfolio.</h3>
+          <p>
+            Set the portfolio’s <code>graph.url</code> in <code>data.js</code> to a local file such as
+            <code>graph/obsidian.html</code> or to an external HTTPS URL.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>Built as a small system that can grow with the work.</p>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+  </body>
+</html>
