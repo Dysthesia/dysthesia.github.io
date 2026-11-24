@@ -31,27 +31,6 @@ examples and explicitly say so. Choosing another method or changing coefficients
 resets the step sequence. The graph stays at the last valid function while an
 invalid coefficient is being edited.
 
-## Integrate with your GitHub Pages portfolio
-
-Keep the project together as a folder, for example
-`projects/quadratic-explorer/`, in the publishing source of your existing site.
-All website asset links are relative, so they work under a project subdirectory.
-
-Link to it from your portfolio:
-
-```html
-<a href="./projects/quadratic-explorer/">Open Quadratic Explorer</a>
-```
-
-For a smaller public deployment, the website only needs `index.html`, `style.css`,
-`js/`, and `assets/`. Include `README.md` and `ROADMAP.md` if you keep the footer
-links as written. Keep the Python files and tests in your source repository to
-show how the project works.
-
-If your repository publishes from `docs/`, put the project beneath that folder.
-You manage deployment through your existing Pages configuration; this project
-does not change or deploy your repository for you.
-
 ## Render the Manim lessons
 
 No rendered videos are bundled. Manim installation was blocked in the creation
