@@ -5,13 +5,6 @@ explanations. It is deliberately small: plain HTML, CSS and JavaScript for the
 website, with Python/Manim for optional rendered lessons. There is no backend,
 build step, CDN dependency, account system, analytics, or API key.
 
-## Start here
-
-1. Extract the project folder.
-2. Open `index.html` in a browser. The graph, solvers, and browser lessons work
-   without installing anything.
-3. Alternatively, from this folder run `python -m http.server 8000`, then open
-   `http://localhost:8000`. This is useful when testing video assets.
 
 Start with the four presets. Change one coefficient, try each method, and compare
 the results. The **Next step** button reveals the algebra gradually. For numerical
@@ -192,12 +185,6 @@ Browser visual QA could not run in the creation environment because its preview
 relay was unavailable. Automated math and source checks do not replace that final
 browser review.
 
-## Make this your own
-
-Start by reading `js/math.js`, reproducing one method on paper, and adding one
-test of your own. Then take an item from `ROADMAP.md`. When you present this in
-your portfolio, explain the parts you understand, the work you changed, and the
-tools or assistance used to create the starter.
 
 ## References
 
@@ -207,3 +194,5 @@ tools or assistance used to create the starter.
 
 Reference documentation was consulted for the Manim setup; dependencies may
 evolve. This project has no connection to those organizations.
+
+Generative AI was used to assist in coding this project.
