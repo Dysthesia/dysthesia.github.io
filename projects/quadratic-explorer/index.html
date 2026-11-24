@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive quadratic explorer. Change coefficients, discover real roots, and learn six solving methods with visual explanations.">
+  <meta name="theme-color" content="#f3f6fa">
+  <title>Quadratic Explorer · A small math laboratory</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="js/math.js"></script>
+  <script defer src="js/graph.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="js/lessons.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#explore">Skip to explorer</a>
+  <header class="site-header">
+    <a class="brand" href="#"><span class="brand-icon">x²</span><span>Quadratic<span class="brand-light"> Explorer</span></span></a>
+    <nav aria-label="Main navigation"><a href="#explore">Explore</a><a href="#solve">Solve</a><a href="#watch">Watch</a></nav>
+    <span class="version">A SMALL MATH LAB · v1.0</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">PLAY WITH THE NUMBERS. FIND THE PATTERNS.</p><h1>Every curve tells a story.</h1><p>Shape a parabola. Find its roots. See the algebra come to life.</p></div>
+      <div class="intro-formula" aria-hidden="true">ax² + bx + c<span>one equation, many ways to explore</span></div>
+    </section>
+    <section id="explore" aria-labelledby="explore-heading">
+      <div class="section-heading"><h2 id="explore-heading">Explore the function</h2><button class="text-button" id="reset">Reset example</button></div>
+      <div class="workspace">
+        <aside class="panel controls">
+          <div class="panel-heading"><h3>Coefficients</h3><span class="small-label">f(x) = ax² + bx + c</span></div>
+          <div class="coefficient"><div class="coefficient-label"><label for="a-number"><span class="variable">a</span> Curvature</label><input id="a-number" type="number" min="-20" max="20" step="0.01" value="1" aria-label="Coefficient a"></div><input id="a-range" type="range" min="-20" max="20" step="0.01" value="1" aria-label="Adjust coefficient a"><div class="range-label"><span>−20</span><span>20</span></div></div>
+          <div class="coefficient"><div class="coefficient-label"><label for="b-number"><span class="variable">b</span> Linear term</label><input id="b-number" type="number" min="-20" max="20" step="0.01" value="-5" aria-label="Coefficient b"></div><input id="b-range" type="range" min="-20" max="20" step="0.01" value="-5" aria-label="Adjust coefficient b"><div class="range-label"><span>−20</span><span>20</span></div></div>
+          <div class="coefficient"><div class="coefficient-label"><label for="c-number"><span class="variable">c</span> Vertical offset</label><input id="c-number" type="number" min="-20" max="20" step="0.01" value="6" aria-label="Coefficient c"></div><input id="c-range" type="range" min="-20" max="20" step="0.01" value="6" aria-label="Adjust coefficient c"><div class="range-label"><span>−20</span><span>20</span></div></div>
+          <p id="input-error" class="error" role="alert" hidden></p>
+          <div class="presets"><h4>Start with a pattern</h4><div class="preset-grid"><button data-preset="two" class="chip active">Two roots</button><button data-preset="double" class="chip">Repeated root</button><button data-preset="none" class="chip">No real roots</button><button data-preset="sqrt" class="chip">Square roots</button></div></div>
+          <p class="hint">Try changing one coefficient at a time. What stays the same?</p>
+        </aside>
+        <div class="panel graph-panel">
+          <div class="graph-heading"><div><span class="eyebrow">YOUR FUNCTION</span><h3 id="function-expression">f(x) = x² − 5x + 6</h3></div><div class="graph-actions"><button id="zoom-out" class="icon-button" aria-label="Zoom out">−</button><button id="zoom-in" class="icon-button" aria-label="Zoom in">+</button><button id="fit" class="small-button">Fit curve</button></div></div>
+          <div class="canvas-wrap"><canvas id="graph" role="img" aria-label="Graph of the quadratic function. Text descriptions are below."></canvas><div id="trace" class="trace" hidden></div><span class="graph-watermark">MOVE OVER THE CURVE TO TRACE</span></div>
+          <div class="graph-legend"><label><input id="show-roots" type="checkbox" checked><span class="legend-dot root-dot"></span>Roots</label><label><input id="show-vertex" type="checkbox" checked><span class="legend-dot vertex-dot"></span>Vertex</label><label><input id="show-axis" type="checkbox" checked><span class="legend-line"></span>Symmetry</label><span class="legend-note">Real plane · auto-fit</span></div>
+          <div class="graph-properties"><div><span>VERTEX</span><strong id="vertex-value"></strong></div><div><span>AXIS OF SYMMETRY</span><strong id="axis-value"></strong></div><div><span>OPENS</span><strong id="opening-value"></strong></div></div>
+        </div>
+      </div>
+      <div class="insights" aria-live="polite" aria-atomic="true">
+        <div class="panel discriminant-card"><div><span class="eyebrow">THE DISCRIMINANT</span><div class="delta-line">Δ = b² − 4ac <span>=</span> <strong id="delta-value">1</strong></div><p id="delta-calculation"></p></div><div class="classification"><span id="root-badge" class="badge">Two real roots</span><p id="root-explanation"></p></div></div>
+        <div class="panel roots-card"><span class="eyebrow">WHERE f(x) = 0</span><strong id="roots-value"></strong><p id="roots-note"></p></div>
+      </div>
+    </section>
+    <section id="solve" class="section" aria-labelledby="solve-heading">
+      <div class="section-heading"><div><p class="eyebrow">SAME ROOTS. DIFFERENT ROUTES.</p><h2 id="solve-heading">Work through a method</h2></div><p class="section-note">Every step follows your current coefficients.</p></div>
+      <div class="solver-layout">
+        <div class="method-menu" role="group" aria-label="Root-solving method">
+          <button class="method active" data-method="formula" aria-pressed="true"><span class="method-symbol">±</span><span>Quadratic formula<small>The universal approach</small></span></button>
+          <button class="method" data-method="factor" aria-pressed="false"><span class="method-symbol">( )</span><span>Factoring<small>Find a rational pair</small></span></button>
+          <button class="method" data-method="square" aria-pressed="false"><span class="method-symbol">□</span><span>Complete the square<small>Build a perfect square</small></span></button>
+          <button class="method" data-method="sqrt" aria-pressed="false"><span class="method-symbol">√</span><span>Square-root method<small>When the linear term is zero</small></span></button>
+          <button class="method" data-method="bisect" aria-pressed="false"><span class="method-symbol">½</span><span>Bisection<small>Narrow down an interval</small></span></button>
+          <button class="method" data-method="newton" aria-pressed="false"><span class="method-symbol">ƒ′</span><span>Newton’s method<small>Follow the tangent</small></span></button>
+        </div>
+        <div class="panel worksheet">
+          <div class="worksheet-heading"><div><span class="eyebrow" id="method-category">ALGEBRAIC METHOD</span><h3 id="method-title">Quadratic formula</h3></div><span class="badge neutral" id="step-count">Step 1 of 4</span></div>
+          <div id="numeric-controls" hidden><p id="numeric-intro"></p><form id="numeric-form"><div id="bracket-fields"><label>Left endpoint<input id="left-end" type="number" step="any" value="0" required></label><label>Right endpoint<input id="right-end" type="number" step="any" value="2.5" required></label></div><label id="initial-field" hidden>Starting x<input id="initial-x" type="number" step="any" value="0" required></label><button class="primary-button" type="submit">Start iterations</button></form><p id="numeric-error" class="error" role="alert" hidden></p></div>
+          <div id="steps" class="steps" aria-live="polite"></div>
+          <div id="iteration-table-wrap" hidden><div class="table-scroll"><table><caption class="sr-only">Numerical iterations</caption><thead id="iteration-head"></thead><tbody id="iteration-body"></tbody></table></div><p id="iteration-status" role="status"></p></div>
+          <div class="step-actions"><button id="previous-step" class="secondary-button">Previous</button><button id="all-steps" class="text-button">Show all steps</button><button id="next-step" class="primary-button">Next step</button></div>
+          <p class="worksheet-footnote" id="method-footnote">Understand the transformation, then check the result on the graph.</p>
+        </div>
+      </div>
+    </section>
+    <section id="watch" class="section" aria-labelledby="watch-heading">
+      <div class="section-heading"><div><p class="eyebrow">FROM SYMBOLS TO MOTION</p><h2 id="watch-heading">Watch the mathematics</h2></div><span class="badge neutral">Browser demos + Manim scenes</span></div>
+      <div class="panel cinema"><div class="video-column">
+        <div class="player-modes" role="group" aria-label="Animation source"><button id="browser-mode" class="chip active" aria-pressed="true">Live illustration</button><button id="manim-mode" class="chip" aria-pressed="false">Manim video</button></div>
+        <div id="browser-player"><canvas id="lesson-canvas" role="img" aria-label="Animated illustration of the discriminant"></canvas><div class="playback-controls"><button id="lesson-play" class="small-button">Play lesson</button><input id="lesson-progress" type="range" min="0" max="1000" step="1" value="0" aria-label="Lesson progress"><button id="lesson-replay" class="small-button">Restart</button></div></div>
+        <video id="lesson-video" controls preload="none" playsinline hidden poster="assets/video-poster.svg" aria-label="Manim animation">Your browser does not support HTML video.</video>
+        <div id="video-missing" class="video-missing" hidden><strong>Ready for your Manim render</strong><p>This starter includes the Python scene. Render it, then add the MP4 to <code>assets/videos/</code>.</p><a href="README.md#render-the-manim-lessons">Open rendering instructions</a><button id="retry-video" class="small-button">Retry video</button></div>
+        <p id="video-status">Live browser illustration · fixed example, independent of the sliders.</p>
+      </div><div class="lesson-list"><p class="eyebrow">VISUAL NOTEBOOK</p><button class="lesson active" data-lesson="discriminant" aria-pressed="true"><span>01</span><span class="lesson-description">The discriminant<small>Two, one, or no real roots</small></span><span class="play-icon" aria-hidden="true">▷</span></button><button class="lesson" data-lesson="completing-square" aria-pressed="false"><span>02</span><span class="lesson-description">Completing the square<small>Watch the algebra transform</small></span><span class="play-icon" aria-hidden="true">▷</span></button><button class="lesson" data-lesson="newton" aria-pressed="false"><span>03</span><span class="lesson-description">Newton’s method<small>From tangent to root</small></span><span class="play-icon" aria-hidden="true">▷</span></button><details class="transcript"><summary>Read this lesson</summary><p id="lesson-transcript"></p></details></div></div>
+    </section>
+    <footer><div><strong>Quadratic Explorer</strong><p>A first project in mathematical curiosity.</p></div><p>Real roots today. More discoveries tomorrow.<br><a href="README.md">Project guide</a> <span>·</span> <a href="ROADMAP.md">Ideas to build next</a></p></footer>
+  </main>
+  <noscript>This explorer needs JavaScript to calculate, draw the graph, and play the illustrations.</noscript>
+</body>
+</html>

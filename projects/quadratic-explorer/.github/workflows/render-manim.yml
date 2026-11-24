@@ -1,0 +1,36 @@
+# Optional: copy this file into your repository's ROOT .github/workflows/.
+# It renders videos on demand; it does not publish or change your repository.
+name: Render Manim lessons
+on:
+  workflow_dispatch:
+    inputs:
+      project_path:
+        description: Folder containing requirements.txt (for example projects/quadratic-explorer)
+        required: true
+        default: '.'
+        type: string
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install rendering dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3-dev libcairo2-dev libpango1.0-dev pkg-config ffmpeg fonts-dejavu
+      - name: Render lessons
+        working-directory: ${{ inputs.project_path }}
+        run: |
+          python -m pip install -r requirements.txt
+          python python/render_lessons.py --quality medium
+      - uses: actions/upload-artifact@v4
+        with:
+          name: quadratic-manim-videos
+          path: ${{ inputs.project_path }}/assets/videos/*.mp4
+          if-no-files-found: error

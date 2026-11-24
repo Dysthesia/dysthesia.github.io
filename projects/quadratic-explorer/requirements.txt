@@ -1,0 +1,2 @@
+# Only needed for rendering videos. The website needs no Python dependencies.
+manim==0.22.1
