@@ -1,0 +1,123 @@
+/* ========== 1. TOKENS ==========
+   Variables live in :root and are used with var(--name).
+   Change a color here and it changes everywhere. */
+:root {
+  --paper:  #eef1f4;   /* page background */
+  --card:   #ffffff;   /* card background */
+  --ink:    #1c2733;   /* main text (indigo-tinted, not pure black) */
+  --muted:  #5b6876;   /* secondary text */
+  --indigo: #2f4b7c;   /* the one accent color */
+  --line:   #cfd6de;   /* borders */
+  --radius: 8px;
+  --font-head: "Shippori Mincho", Georgia, serif;
+  --font-body: "Zen Kaku Gothic New", system-ui, sans-serif;
+}
+
+/* When <html> has data-theme="dark", these values replace the ones above.
+   The more specific selector wins, so nothing else needs to change. */
+:root[data-theme="dark"] {
+  --paper:  #141a22;
+  --card:   #1c2530;
+  --ink:    #e6ebf0;
+  --muted:  #9aa7b5;
+  --indigo: #8fb0e8;   /* lighter so it stays readable on dark */
+  --line:   #2f3b49;
+  color-scheme: dark;  /* makes scrollbars and the dialog use dark defaults */
+}
+
+/* ========== 2. BASE ========== */
+* { box-sizing: border-box; }   /* width includes padding+border: much easier math */
+
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }  /* smooth jumps; leave room for sticky nav */
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin: 0 0 1rem; }  /* clamp(min, ideal, max) = fluid size */
+h2 { font-size: 1.9rem; margin: 0 0 1.25rem; }
+h3 { margin: 2.5rem 0 1rem; }
+h4 { margin: 0 0 .5rem; }
+
+a { color: var(--indigo); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; } /* keyboard users */
+
+/* .wrap centers content and limits its width */
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+section { padding: 4rem 0 1rem; }
+.lead { font-size: 1.2rem; max-width: 60ch; }   /* ch = width of the "0" character: good for line length */
+.caption { color: var(--muted); font-size: .9rem; }
+footer { padding: 3rem 1.25rem; color: var(--muted); }
+
+/* ========== 3. NAV ========== */
+.site-header {
+  position: sticky; top: 0;           /* stays at the top while scrolling */
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  z-index: 10;
+}
+.site-header nav { display: flex; gap: 1.25rem; align-items: center; padding-top: .8rem; padding-bottom: .8rem; flex-wrap: wrap; }
+.site-header a { text-decoration: none; }
+.brand { font-family: var(--font-head); font-weight: 700; margin-right: auto; } /* auto margin pushes other links right */
+
+/* ========== 4. OBSIDIAN GRAPH (the one big element on the page) ========== */
+.graph {
+  width: 100%;
+  height: min(70vh, 560px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+/* ========== 5. GRID + CARDS ==========
+   auto-fit + minmax = as many columns as fit, each at least 220px wide.
+   No media queries needed for mobile. */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  text-align: left;
+  font: inherit; color: inherit;      /* buttons don't inherit fonts by default */
+}
+button.card { cursor: pointer; }
+button.card:hover { border-color: var(--indigo); }
+.card h4 { margin-bottom: .3rem; }
+.card p, .card ul { margin: .3rem 0 0; color: var(--muted); font-size: .95rem; }
+.card ul { padding-left: 1.1rem; }
+
+/* ========== 6. FILTER BUTTONS + DIALOG ========== */
+.filters { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.filters button, #dialog-close {
+  font: inherit; padding: .35rem .9rem; cursor: pointer;
+  border: 1px solid var(--indigo); border-radius: var(--radius);
+  background: transparent; color: var(--indigo);
+}
+.filters button[aria-pressed="true"] { background: var(--indigo); color: #fff; }  /* style by attribute */
+
+dialog { max-width: 520px; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+dialog::backdrop { background: rgba(28, 39, 51, .55); }
+dialog h3 { margin-top: 0; }
+
+/* ========== 7. SWOT, CHIPS, LISTS ========== */
+.swot { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.swot > div { border-left: 3px solid var(--indigo); padding-left: 1rem; }  /* left bar groups each quadrant */
+.swot ul { margin: 0; padding-left: 1.1rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; }
+.chips li { border: 1px solid var(--line); background: var(--card); border-radius: var(--radius); padding: .3rem .8rem; }
+.chips li.top { border-color: var(--indigo); font-weight: 700; }   /* your top 5 strengths */
+
+.wip-list { list-style: none; padding: 0; margin: 0; }
+.wip-list li { padding: .8rem 0; border-bottom: 1px solid var(--line); }
+.wip-list .status { color: var(--muted); font-size: .9rem; }
+
+/* Respect people who turn off animations in their OS settings */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

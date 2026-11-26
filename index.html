@@ -1,147 +1,101 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A modular personal portfolio for projects, notes, and an embedded knowledge graph."
-    />
-    <title>Elyjah Andres</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="data.js" defer></script>
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="shell header-inner">
-        <a class="brand" href="#top" aria-label="Return to the top of the portfolio">
-          <span class="brand-mark" aria-hidden="true">/</span>
-          <span>portfolio.system</span>
-        </a>
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the page scale properly on phones. Keep this line. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ely Andres – Portfolio</title>
 
-        <nav class="site-nav" aria-label="Primary navigation">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#graph">Graph</a>
-        </nav>
+  <!-- Two Google Fonts: a Japanese-style serif for headings, a clean sans for body text -->
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- "defer" = load the script after the HTML is read, so it can find every element -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- NAV: each href="#id" jumps to the section with that id -->
+  <header class="site-header">
+    <nav class="wrap">
+      <button id="theme-toggle" type="button">Dark</button>
+      <a href="#about" class="brand">Ely Andres</a>
+      <a href="#projects">Projects</a>
+      <a href="#self">Personality</a>
+      <a href="#goals">Goals</a>
+      <a href="#wip">Future Plans</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 1. INTRODUCTION + OBSIDIAN GRAPH -->
+    <section id="about">
+      <h1>Hi, I’m Ely Andres.</h1>
+      <p class="lead">
+        Write 2–3 sentences here: who you are, what you are studying, and what you are working toward.
+      </p>
+
+      <!-- An iframe shows another HTML page inside this one.
+           Export your Obsidian graph as "graph.html" and put it in this same folder.
+           If your graph lives on another site, replace src with its full URL. -->
+      <iframe class="graph" src="graph/index.html" title="Graph view of my Obsidian notes" loading="lazy"></iframe>
+      <p class="caption">My notes as a graph. Drag nodes around to explore.</p>
+    </section>
+
+    <!-- 2. PROJECTS VIEWER
+         The buttons and cards are empty here: script.js fills them from a list. -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="project-grid"></div>
+
+      <!-- <dialog> is a built-in popup. JS opens it with .showModal() -->
+      <dialog id="project-dialog">
+        <h3 id="dialog-title"></h3>
+        <p id="dialog-body"></p>
+        <p><a id="dialog-link" href="#" target="_blank" rel="noopener">View project</a></p>
+        <button id="dialog-close">Close</button>
+      </dialog>
+    </section>
+
+    <!-- 3. SELF MAP: SWOT, Big 5, VIA -->
+    <section id="self">
+      <h2>Self map</h2>
+
+      <h3>SWOT</h3>
+      <!-- This one is plain HTML. Edit the <li> items directly. -->
+      <div class="swot">
+        <div><h4>Strengths</h4><ul><li>Add a strength</li><li>Add a strength</li></ul></div>
+        <div><h4>Weaknesses</h4><ul><li>Add a weakness</li><li>Add a weakness</li></ul></div>
+        <div><h4>Opportunities</h4><ul><li>Add an opportunity</li><li>Add an opportunity</li></ul></div>
+        <div><h4>Threats</h4><ul><li>Add a threat</li><li>Add a threat</li></ul></div>
       </div>
-    </header>
 
-    <main id="top">
-      <section class="hero section shell" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow" id="portfolio-label">Elyjah Andres</p>
-          <h1 id="hero-title">A home for the work I’m building.</h1>
-          <p class="hero-summary" id="hero-summary">
-           A portfolio made by and for an aspiring data scientist.
-          </p>
+      <h3>My Big 5</h3>
+      <div class="grid" id="big5-grid"></div>
 
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore work</a>
-            <a class="button button-secondary" id="hero-graph-link" href="#graph">Open graph</a>
-          </div>
+      <h3>VIA character strengths</h3>
+      <ul class="chips" id="via-list"></ul>
+    </section>
 
-          <div class="hero-note">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span id="portfolio-status">Currently building in public</span>
-          </div>
-        </div>
+    <!-- 4. SMART GOALS -->
+    <section id="goals">
+      <h2>SMART goals</h2>
+      <div class="grid" id="goal-grid"></div>
+    </section>
 
-        <aside class="portfolio-switcher panel" aria-labelledby="switcher-title">
-          <div class="panel-topline">
-            <span class="panel-kicker">Workspace</span>
-            <span class="panel-index" id="portfolio-index">01</span>
-          </div>
-          <h2 id="switcher-title">Choose a portfolio</h2>
-          <label class="select-label" for="portfolio-select">Active collection</label>
-          <select id="portfolio-select" aria-describedby="switcher-help"></select>
-          <p class="panel-help" id="switcher-help">
-            Each collection uses the same layout, so you can add new areas without rebuilding the page.
-          </p>
-          <div class="stat-grid" id="hero-stats" aria-label="Portfolio summary"></div>
-        </aside>
-      </section>
+    <!-- 5. FUTURE WIP PROJECTS -->
+    <section id="wip">
+      <h2>Next up</h2>
+      <ul class="wip-list" id="wip-list"></ul>
+    </section>
 
-      <section class="section shell" id="work" aria-labelledby="work-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Selected work</p>
-            <h2 id="work-title">Projects with a clear next step.</h2>
-          </div>
-          <p class="section-intro" id="work-intro">
-            A small set of projects is easier to maintain than a long list of unfinished links.
-          </p>
-        </div>
-        <div class="projects-grid" id="projects-grid"></div>
-      </section>
+  </main>
 
-      <section class="section shell about-layout" id="about" aria-labelledby="about-title">
-        <div class="about-copy">
-          <p class="eyebrow">About this collection</p>
-          <h2 id="about-title">Learn by making things visible.</h2>
-          <p id="about-text">
-            This section is intentionally short. Use it for your current direction, the questions you care about,
-            or the kind of work you want to do next.
-          </p>
-        </div>
+  <footer class="wrap">
+    <p>Contact: <a href="mailto:you@example.com">andreselyjahsantiago@gmail.com</a></p>
+  </footer>
 
-        <aside class="focus-card panel" aria-labelledby="focus-title">
-          <div class="panel-topline">
-            <span class="panel-kicker">Current focus</span>
-            <span class="accent-line" aria-hidden="true"></span>
-          </div>
-          <h2 id="focus-title">What I’m exploring</h2>
-          <ul class="focus-list" id="focus-list"></ul>
-        </aside>
-      </section>
-
-      <section class="section shell graph-section" id="graph" aria-labelledby="graph-title">
-        <div class="section-heading graph-heading">
-          <div>
-            <p class="eyebrow">Knowledge graph</p>
-            <h2 id="graph-title">A visual map of the ideas behind the work.</h2>
-          </div>
-          <div class="graph-copy">
-            <p id="graph-description">
-              Embed an Obsidian graph export here, or point this portfolio to an externally hosted HTML file.
-            </p>
-            <a class="text-link" id="graph-open-link" href="graph/index.html" target="_blank" rel="noopener">
-              Open graph separately
-            </a>
-          </div>
-        </div>
-
-        <div class="graph-meta">
-          <span class="graph-source" id="graph-source">Source: graph/index.html</span>
-          <span class="graph-status" id="graph-status" aria-live="polite">Loading graph panel…</span>
-        </div>
-
-        <div class="graph-frame-wrap" id="graph-frame-wrap">
-          <iframe
-            id="graph-frame"
-            title="Embedded Obsidian knowledge graph"
-            loading="lazy"
-            referrerpolicy="no-referrer"
-          ></iframe>
-        </div>
-
-        <div class="graph-empty panel" id="graph-empty" hidden>
-          <p class="eyebrow">Graph not configured</p>
-          <h3>Add an HTML graph to this portfolio.</h3>
-          <p>
-            Set the portfolio’s <code>graph.url</code> in <code>data.js</code> to a local file such as
-            <code>graph/obsidian.html</code> or to an external HTTPS URL.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="shell footer-inner">
-        <p>Built as a small system that can grow with the work.</p>
-        <a href="#top">Back to top</a>
-      </div>
-    </footer>
-  </body>
+</body>
 </html>
