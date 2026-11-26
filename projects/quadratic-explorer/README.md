@@ -5,13 +5,6 @@ explanations. It is deliberately small: plain HTML, CSS and JavaScript for the
 website, with Python/Manim for optional rendered lessons. There is no backend,
 build step, CDN dependency, account system, analytics, or API key.
 
-## Start here
-
-1. Extract the project folder.
-2. Open `index.html` in a browser. The graph, solvers, and browser lessons work
-   without installing anything.
-3. Alternatively, from this folder run `python -m http.server 8000`, then open
-   `http://localhost:8000`. This is useful when testing video assets.
 
 Start with the four presets. Change one coefficient, try each method, and compare
 the results. The **Next step** button reveals the algebra gradually. For numerical
@@ -37,27 +30,6 @@ All calculations use your current coefficients. The teaching animations use fixe
 examples and explicitly say so. Choosing another method or changing coefficients
 resets the step sequence. The graph stays at the last valid function while an
 invalid coefficient is being edited.
-
-## Integrate with your GitHub Pages portfolio
-
-Keep the project together as a folder, for example
-`projects/quadratic-explorer/`, in the publishing source of your existing site.
-All website asset links are relative, so they work under a project subdirectory.
-
-Link to it from your portfolio:
-
-```html
-<a href="./projects/quadratic-explorer/">Open Quadratic Explorer</a>
-```
-
-For a smaller public deployment, the website only needs `index.html`, `style.css`,
-`js/`, and `assets/`. Include `README.md` and `ROADMAP.md` if you keep the footer
-links as written. Keep the Python files and tests in your source repository to
-show how the project works.
-
-If your repository publishes from `docs/`, put the project beneath that folder.
-You manage deployment through your existing Pages configuration; this project
-does not change or deploy your repository for you.
 
 ## Render the Manim lessons
 
@@ -192,12 +164,6 @@ Browser visual QA could not run in the creation environment because its preview
 relay was unavailable. Automated math and source checks do not replace that final
 browser review.
 
-## Make this your own
-
-Start by reading `js/math.js`, reproducing one method on paper, and adding one
-test of your own. Then take an item from `ROADMAP.md`. When you present this in
-your portfolio, explain the parts you understand, the work you changed, and the
-tools or assistance used to create the starter.
 
 ## References
 
@@ -207,3 +173,5 @@ tools or assistance used to create the starter.
 
 Reference documentation was consulted for the Manim setup; dependencies may
 evolve. This project has no connection to those organizations.
+
+Generative AI was used to assist in coding this project.
